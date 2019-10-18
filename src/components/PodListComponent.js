@@ -16,7 +16,7 @@ class PodListComponent extends Component {
         return (
             <div>
                                 <ul>
-                                {this.state.pods.map((value,index) => {
+                                {this.props.pods.map((value,index) => {
                                     console.log(value)
                                     return <li key={index}><PodComponent pod={value}/></li>
                                 })}

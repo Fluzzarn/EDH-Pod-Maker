@@ -12,7 +12,7 @@ class PodComponent extends Component {
     render() {
         return (
             <div>
-                {this.state.pod.map((value,index) => {
+                {this.props.pod.map((value,index) => {
                     console.log(value)
                                     return value+', '
                 })}

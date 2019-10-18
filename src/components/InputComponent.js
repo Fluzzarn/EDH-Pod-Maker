@@ -12,6 +12,7 @@ class InputComponent extends Component {
     handleSub(event){
         event.preventDefault()
         this.state.handleSubmit(this.state.name)
+        this.setState({name:""})
     }
 
     handleTextChange(event){
@@ -21,7 +22,7 @@ class InputComponent extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSub}>
-                    <label>Name:<input type="text" name="name" onChange={this.handleTextChange}/>
+                    <label>Name:<input type="text" name="name" onChange={this.handleTextChange} value={this.state.name}/>
                     </label>
                     <input type="submit" value="Submit" />
                 </form>

@@ -25,7 +25,8 @@ class App extends Component {
   
   startPodsClicked(event){
     event.preventDefault()
-    var shuffledPlayers = shuffle(this.state.enteredPlayers)
+    var players = this.state.enteredPlayers.slice(0)
+    var shuffledPlayers = shuffle(players)
     console.log(shuffledPlayers)
     var numberOfFullPods = Math.floor(shuffledPlayers.length / 4)
     var leftoverPlayers  = shuffledPlayers.length % 4
