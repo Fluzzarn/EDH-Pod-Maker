@@ -1,26 +1,129 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import InputComponent from './components/InputComponent.js'
+import PlayerListComponent from './components/PlayerListComponent';
+import PodListComponent from './components/PodListComponent';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this)
+    this.startPodsClicked = this.startPodsClicked.bind(this)
+    this.removeName = this.removeName.bind(this)
+    var players =[]
+    var pods = []
+    this.state = ({
+      enteredPlayers: players,
+      pods: pods
+    })
+  }
+  
+  startPodsClicked(event){
+    event.preventDefault()
+    var shuffledPlayers = shuffle(this.state.enteredPlayers)
+    console.log(shuffledPlayers)
+    var numberOfFullPods = Math.floor(shuffledPlayers.length / 4)
+    var leftoverPlayers  = shuffledPlayers.length % 4
+
+    var podsOfThree = 0
+
+
+
+    if(leftoverPlayers != 0){
+      podsOfThree = 1
+    }
+    console.log(numberOfFullPods)
+    console.log(leftoverPlayers)
+
+    if(leftoverPlayers !== 0){
+      while(leftoverPlayers < 3){
+        numberOfFullPods--
+        podsOfThree++
+        leftoverPlayers++
+      }
+    }
+
+    var pods = []
+
+    for(var i=0; i<numberOfFullPods;i++){
+      pods.push(shuffledPlayers.slice(i*4,i*4 +4))
+    }
+
+    for(var j=0; j<podsOfThree;j++){
+
+      var start = j*3 + numberOfFullPods*4
+      var slice = shuffledPlayers.slice(start,start +3)
+      pods.push(slice)
+    }
+
+    console.log(pods)
+    this.setState({
+      pods: pods
+    })
+  }
+
+  handleClick(event){
+    console.log(event)
+    this.setState({
+      enteredPlayers: this.state.enteredPlayers.concat(event)
+    })
+  }
+
+  removeName(name){
+    console.log("REMOVEING " , name)
+    this.setState({
+      enteredPlayers: this.state.enteredPlayers.filter(word => word !== name)
+    })
+  }
+
+  render(){
+    console.log(this.state)
+    return (
+      <div className="App">
+        <InputComponent  handleSubmit={this.handleClick}/>
+
+        <br/>
+        <form onSubmit={this.startPodsClicked}>
+                    <input type="submit" value="Start Pods" />
+                </form>
+        <PlayerListComponent enteredPlayers={this.state.enteredPlayers} removeName={this.removeName} />
+
+        {this.state.pods.length > 0 && 
+          <PodListComponent pods={this.state.pods}/>
+        }
+
+      </div>
+    );
+  }
+
+}
+
+
+function shuffle(array) {
+
+  let tempArray = array
+  let counter = array.length;
+
+  // While there are elements in the array
+  while (counter > 0) {
+      // Pick a random index
+      let index = Math.floor(Math.random() * counter);
+
+      // Decrease counter by 1
+      counter--;
+
+      // And swap the last element with it
+      let temp = tempArray[counter];
+      tempArray[counter] = tempArray[index];
+      tempArray[index] = temp;
+  }
+
+  return tempArray;
 }
 
 export default App;
