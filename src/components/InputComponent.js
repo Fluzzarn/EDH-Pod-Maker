@@ -22,7 +22,7 @@ class InputComponent extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSub}>
-                    <label>Name:<input type="text" name="name" onChange={this.handleTextChange} value={this.state.name}/>
+                    <label>Name:<input type="text" name="name" className="form-control-plaintext" onChange={this.handleTextChange} value={this.state.name}/>
                     </label>
                     <input type="submit" value="Submit" />
                 </form>

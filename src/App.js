@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import InputComponent from './components/InputComponent.js'
 import PlayerListComponent from './components/PlayerListComponent';
 import PodListComponent from './components/PodListComponent';
-
-
-
-
+import testData from './testData'
 class App extends Component {
 
   constructor(props) {
@@ -15,7 +11,7 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.startPodsClicked = this.startPodsClicked.bind(this)
     this.removeName = this.removeName.bind(this)
-    var players =[]
+    var players =testData
     var pods = []
     this.state = ({
       enteredPlayers: players,
@@ -35,7 +31,7 @@ class App extends Component {
 
 
 
-    if(leftoverPlayers != 0){
+    if(leftoverPlayers !== 0){
       podsOfThree = 1
     }
     console.log(numberOfFullPods)
@@ -85,18 +81,27 @@ class App extends Component {
   render(){
     console.log(this.state)
     return (
-      <div className="App">
-        <InputComponent  handleSubmit={this.handleClick}/>
-
-        <br/>
-        <form onSubmit={this.startPodsClicked}>
-                    <input type="submit" value="Start Pods" />
-                </form>
-        <PlayerListComponent enteredPlayers={this.state.enteredPlayers} removeName={this.removeName} />
-
-        {this.state.pods.length > 0 && 
+      <div className="App container-fluid">
+        <div className="row">
+          <div className="col">
+            <InputComponent  handleSubmit={this.handleClick}/>
+            <br/>
+            <form onSubmit={this.startPodsClicked}>
+              <input type="submit" className="btn btn-primary btn-lg" value="Start Pods" />
+          </form>
+          </div>
+          <div className="col">
+            <PlayerListComponent enteredPlayers={this.state.enteredPlayers} removeName={this.removeName} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+          {this.state.pods.length > 0 && 
           <PodListComponent pods={this.state.pods}/>
         }
+          </div>
+        </div>
+
 
       </div>
     );

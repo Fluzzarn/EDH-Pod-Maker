@@ -5,24 +5,25 @@ class PodListComponent extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             pods: props.pods
         }
     }
 
     render() {
-        console.log(this.state)
         return (
-            <div>
-                                <ul>
-                                {this.props.pods.map((value,index) => {
-                                    console.log(value)
-                                    return <li key={index}><PodComponent pod={value}/></li>
-                                })}
-                            </ul>
+            <div className="row">
+                    {this.props.pods.map((value,index) => {
+                        
+                        return (
+                            <div className='col' key={index}>
+                            <h2>Pod {index + 1}</h2>
+                            <br/>
+                            <PodComponent pod={value}/> 
+                            </div>
 
-
+                        )
+                    })}
             </div>
         );
     }

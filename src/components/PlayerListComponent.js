@@ -19,18 +19,23 @@ class PlayerListComponent extends Component {
     }
 
     render() {
-        console.log("INM LIST", this.state)
+        const {enteredPlayers} = this.props
         return (
             <div>
+                <h1>Enrolled Players 
+                <span className="badge badge-primary" float="right">{" " + enteredPlayers.length}</span>
+                </h1>
+                
                         <ul>
-        {this.props.enteredPlayers.map((value,index) => {
+        {enteredPlayers.map((value,index) => {
             return <>
                         <form key={value} onSubmit={(e) => this.handleClick(e,{value})}>
                         <li key={index}>
+                            <h5>
                             {value} 
- 
-                                <input key={value} type="submit" value="X"/>
-                           
+                            <input key={value} type="submit" value="X" className="button"/>
+                            </h5>
+                                
                         </li> 
                         </form> 
                     </>

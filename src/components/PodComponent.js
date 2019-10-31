@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class PodComponent extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            pod: props.pod
-        }
-    }
-    
-    render() {
-        return (
-            <div>
-                {this.props.pod.map((value,index) => {
-                    console.log(value)
-                                    return value+', '
-                })}
-                </div>
-        );
 
-    }
+function PodComponent(props) {
+    const {pod} = props
+    return (
+        <>
+            {pod.map( player => {
+                return (<h4>
+                    {player}
+                </h4>)
+            })}
+        </>
+    )
 }
 
 export default PodComponent;
