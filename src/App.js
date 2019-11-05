@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import InputComponent from './components/InputComponent.js'
-import PlayerListComponent from './components/PlayerListComponent';
-import PodListComponent from './components/PodListComponent';
 import testData from './testData'
+import PodPageComponent from './components/edhpods/PodPageComponent';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
+import NavbarComponent from './components/common/NavbarComponent';
+import AboutPageComponent from './components/about/AboutPageComponent';
+
 class App extends Component {
 
   constructor(props) {
@@ -79,31 +81,21 @@ class App extends Component {
   }
 
   render(){
-    console.log(this.state)
     return (
-      <div className="App container-fluid">
-        <div className="row">
-          <div className="col">
-            <InputComponent  handleSubmit={this.handleClick}/>
-            <br/>
-            <form onSubmit={this.startPodsClicked}>
-              <input type="submit" className="btn btn-primary btn-lg" value="Start Pods" />
-          </form>
-          </div>
-          <div className="col">
-            <PlayerListComponent enteredPlayers={this.state.enteredPlayers} removeName={this.removeName} />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-          {this.state.pods.length > 0 && 
-          <PodListComponent pods={this.state.pods}/>
-        }
-          </div>
-        </div>
+      <Router>
+        <NavbarComponent/>
+        <Switch>
+          <Route path='/pods'>
+          <PodPageComponent pods={this.state.pods} handleClick={this.handleClick} startPodsClicked={this.startPodsClicked} enteredPlayers={this.state.enteredPlayers}
+      removeName={this.removeName} />
+          </Route>
+          <Route path='/about'>
+            <AboutPageComponent />
+          </Route>
+        </Switch>
 
+      </Router>
 
-      </div>
     );
   }
 
@@ -133,3 +125,33 @@ function shuffle(array) {
 }
 
 export default App;
+
+
+
+/**
+ * 
+ * 
+ *       <div className="App container-fluid">
+        <div className="row">
+          <div className="col">
+            <InputComponent  handleSubmit={this.handleClick}/>
+            <br/>
+            <form onSubmit={this.startPodsClicked}>
+              <input type="submit" className="btn btn-primary btn-lg" value="Start Pods" />
+          </form>
+          </div>
+          <div className="col">
+            <PlayerListComponent enteredPlayers={this.state.enteredPlayers} removeName={this.removeName} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+          {this.state.pods.length > 0 && 
+          <PodListComponent pods={this.state.pods}/>
+        }
+          </div>
+        </div>
+
+
+      </div>
+ */
